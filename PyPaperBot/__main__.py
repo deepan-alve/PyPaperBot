@@ -9,7 +9,7 @@ from .Scholar import ScholarPapersInfo
 from .Crossref import getPapersInfoFromDOIs
 from .proxy import proxy
 
-def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, num_limit=None, num_limit_type=None, filter_jurnal_file=None, restrict=None, DOIs=None, SciHub_URL=None):
+def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, num_limit=None, num_limit_type=None, filter_jurnal_file=None, restrict=None, DOIs=None, SciHub_URL=None, use_enhanced=True):
 
     to_download = []
     if DOIs==None:
@@ -42,7 +42,7 @@ def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, 
         if num_limit_type!=None and num_limit_type==1:
             to_download.sort(key=lambda x: int(x.sc_cites) if x.sc_cites!=None else 0, reverse=True)
 
-        downloadPapers(to_download, dwn_dir, num_limit, SciHub_URL)
+        downloadPapers(to_download, dwn_dir, num_limit, len(to_download), SciHub_URL, use_enhanced)
 
 
     Paper.generateReport(to_download,dwn_dir+"result.csv")
@@ -67,6 +67,8 @@ def main():
     parser.add_argument('--restrict', default=None, type=int ,choices=[0,1], help='0:Download only Bibtex - 1:Down load only papers PDF')
     parser.add_argument('--scihub-mirror', default=None, type=str, help='Mirror for downloading papers from sci-hub. If not set, it is selected automatically')
     parser.add_argument('--scholar-results', default=10, type=int, choices=[1,2,3,4,5,6,7,8,9,10], help='Downloads the first x results in a scholar page(max=10)')
+    parser.add_argument('--enhanced-dl', action='store_true', default=True, help='Use enhanced downloader with progress bars and resume capability (default: enabled)')
+    parser.add_argument('--classic-dl', action='store_true', default=False, help='Use classic downloader instead of enhanced version')
     parser.add_argument('--proxy', nargs='+', default=[], help='Use proxychains, provide a seperated list of proxies to use.Please specify the argument al the end')
     args = parser.parse_args()
 
@@ -142,7 +144,10 @@ def main():
         max_dwn_type = 1
 
 
-    start(args.query, args.scholar_results, scholar_pages, dwn_dir, proxy, args.min_year , max_dwn, max_dwn_type , args.journal_filter, args.restrict, DOIs, args.scihub_mirror)
+    # Determine which downloader to use
+    use_enhanced = not args.classic_dl  # Use enhanced unless classic is explicitly requested
+
+    start(args.query, args.scholar_results, scholar_pages, dwn_dir, proxy, args.min_year , max_dwn, max_dwn_type , args.journal_filter, args.restrict, DOIs, args.scihub_mirror, use_enhanced)
 
 if __name__ == "__main__":
     main()

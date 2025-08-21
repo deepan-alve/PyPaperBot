@@ -5,6 +5,14 @@ from .HTMLparsers import getSchiHubPDF, SciHubUrls
 import random
 from .NetInfo import NetInfo
 
+# Import enhanced downloader for improved experience
+try:
+    from .EnhancedDownloader import EnhancedDownloader
+    ENHANCED_DOWNLOADER_AVAILABLE = True
+except ImportError:
+    ENHANCED_DOWNLOADER_AVAILABLE = False
+    print("Enhanced downloader not available. Install pySmartDL for better downloading experience.")
+
 def setSciHubUrl():
     r = requests.get(NetInfo.SciHub_URLs_repo, headers=NetInfo.HEADERS)
     links = SciHubUrls(r.text)
@@ -43,7 +51,37 @@ def saveFile(file_name,content, paper,dwn_source):
     paper.downloaded = True
     paper.downloadedFrom = dwn_source
 
-def downloadPapers(papers, dwnl_dir, num_limit, scholar_results, SciHub_URL=None):
+def downloadPapers(papers, dwnl_dir, num_limit, scholar_results, SciHub_URL=None, use_enhanced=True):
+    """
+    Download papers with option to use enhanced downloader
+    
+    Args:
+        papers: List of Paper objects to download
+        dwnl_dir: Download directory
+        num_limit: Maximum number of papers to download
+        scholar_results: Total number of scholar results
+        SciHub_URL: Custom SciHub URL
+        use_enhanced: Use enhanced downloader if available (default: True)
+    """
+    # Try to use enhanced downloader if available and requested
+    if use_enhanced and ENHANCED_DOWNLOADER_AVAILABLE:
+        print("🚀 Using enhanced downloader with PySmartDL for better experience!")
+        downloader = EnhancedDownloader(enable_progress=True)
+        stats = downloader.download_papers_enhanced(
+            papers, dwnl_dir, num_limit, scholar_results, SciHub_URL
+        )
+        return stats.get('downloaded_files', [])
+    else:
+        # Fall back to original downloader
+        if use_enhanced and not ENHANCED_DOWNLOADER_AVAILABLE:
+            print("⚠️  Enhanced downloader not available. Using original downloader.")
+            print("   Install pySmartDL with: pip install pySmartDL")
+        
+        return _downloadPapersOriginal(papers, dwnl_dir, num_limit, scholar_results, SciHub_URL)
+
+
+def _downloadPapersOriginal(papers, dwnl_dir, num_limit, scholar_results, SciHub_URL=None):
+    """Original download function (renamed for backward compatibility)"""
     def URLjoin(*args):
         return "/".join(map(lambda x: str(x).rstrip('/'), args))
 

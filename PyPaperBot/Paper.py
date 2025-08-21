@@ -32,7 +32,7 @@ class Paper:
 
     def getFileName(self):
         try:
-            return re.sub('[^\w\-_\. ]', '_', self.title)+".pdf"
+            return re.sub(r'[^\w\-_\. ]', '_', self.title)+".pdf"
         except:
             return "none.pdf"
 

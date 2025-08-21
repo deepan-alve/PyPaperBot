@@ -13,6 +13,9 @@ PyPaerbot is also able to download the **bibtex** of each paper.
 - Download papers given a Google Scholar link
 - Generate Bibtex of the downloaded paper
 - Filter downloaded paper by year, journal and citations number
+- **🚀 Enhanced downloader with progress bars and resume capability** (NEW!)
+- **⚡ Multi-threaded downloads for improved speed** (NEW!)
+- **📊 Real-time download statistics and monitoring** (NEW!)
 
 ## Installation
 
@@ -23,6 +26,8 @@ Use `pip` to install from pypi:
 ```bash
 pip install PyPaperBot
 ```
+
+**🚀 Enhanced Download Experience**: The latest version includes an enhanced downloader with progress bars, resume capability, and multi-threaded downloads. This requires `pySmartDL` which is automatically installed with PyPaperBot.
 
 ### For Termux users
 
@@ -60,6 +65,8 @@ PyPaperBot arguments:
 | \-\-restrict       | 0:Download only Bibtex - 1:Down load only papers PDF                                     | int    |
 | \-\-scihub-mirror  | Mirror for downloading papers from sci-hub. If not set, it is selected automatically     | string |
 | \-\-scholar-results| Number of scholar results to bedownloaded when \-\-scholar-pages=1                       | int    |
+| \-\-enhanced-dl    | Use enhanced downloader with progress bars and resume capability (default: enabled)      | flag   |
+| \-\-classic-dl     | Use classic downloader instead of enhanced version                                       | flag   |
 | \-\-proxy          | Proxies to be used. Please specify the protocol to be used.                              | string |
 | \-h                | Shows the help                                                                           | --     |
 
@@ -86,6 +93,18 @@ If access to SciHub is blocked in your country, consider using a free VPN servic
 Also, you can use proxy option above.
 
 ## Example
+
+Download papers with enhanced downloader (shows progress bars and statistics):
+
+```bash
+python -m PyPaperBot --query="Machine learning" --scholar-pages=3  --min-year=2018 --dwn-dir="C:\User\example\papers" --scihub-mirror="https://sci-hub.do"
+```
+
+Download with classic downloader (original behavior):
+
+```bash
+python -m PyPaperBot --classic-dl --query="Machine learning" --scholar-pages=3  --min-year=2018 --dwn-dir="C:\User\example\papers"
+```
 
 Download a maximum of 30 papers from the first 3 pages given a query and starting from 2018 using the mirror https://sci-hub.do:
 

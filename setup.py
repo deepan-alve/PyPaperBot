@@ -35,6 +35,7 @@ setuptools.setup(
         'pyChainedProxy>=1.1',
         'pylint>=2.6.0',
         'pyparsing>=2.4.7',
+        'pySmartDL>=1.3.4',
         'python-dateutil>=2.8.1',
         'pytz>=2020.1',
         'ratelimit>=2.2.1',
