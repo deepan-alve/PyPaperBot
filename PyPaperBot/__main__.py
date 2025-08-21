@@ -11,6 +11,10 @@ from .proxy import proxy
 
 def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, num_limit=None, num_limit_type=None, filter_jurnal_file=None, restrict=None, DOIs=None, SciHub_URL=None, use_enhanced=True):
 
+    # Ensure download directory exists
+    import os
+    os.makedirs(dwn_dir, exist_ok=True)
+
     to_download = []
     if DOIs==None:
         print("Query: {}".format(query))
