@@ -50,9 +50,9 @@ class EnhancedDownloader:
                     continue
             
             if found:
-                print(f"✓ Using {NetInfo.SciHub_URL} as Sci-Hub instance")
+                print(f"Using {NetInfo.SciHub_URL} as Sci-Hub instance")
             else:
-                print("⚠ No working Sci-Hub instance found!")
+                print("WARNING: No working Sci-Hub instance found!")
                 print("Consider using a VPN or proxy if Sci-Hub is blocked in your country")
                 NetInfo.SciHub_URL = "https://sci-hub.st"
                 
@@ -120,18 +120,18 @@ class EnhancedDownloader:
             # Check if download was successful
             if dl.isSuccessful():
                 if self.enable_progress:
-                    print(f"✓ Successfully downloaded: {os.path.basename(file_path)}")
+                    print(f"Successfully downloaded: {os.path.basename(file_path)}")
                     print(f"  Size: {dl.get_dl_size(human=True)}")
                     print(f"  Speed: {dl.get_speed(human=True)}")
                 return True
             else:
                 if self.enable_progress:
-                    print(f"✗ Download failed: {dl.get_errors()}")
+                    print(f"Download failed: {dl.get_errors()}")
                 return False
                 
         except Exception as e:
             if self.enable_progress:
-                print(f"✗ Download error: {e}")
+                print(f"Download error: {e}")
             return False
 
     def download_paper_enhanced(self, paper, download_dir, scihub_url=None):
@@ -201,7 +201,7 @@ class EnhancedDownloader:
         # Try each strategy
         for i, strategy in enumerate(strategies):
             if self.enable_progress:
-                print(f"\n📥 Attempting download {i+1}/{len(strategies)}: {strategy['source']}")
+                print(f"\nAttempting download {i+1}/{len(strategies)}: {strategy['source']}")
                 print(f"   Paper: {paper.title[:60]}{'...' if len(paper.title) > 60 else ''}")
             
             try:
@@ -255,12 +255,12 @@ class EnhancedDownloader:
                         
             except Exception as e:
                 if self.enable_progress:
-                    print(f"   ✗ Strategy failed: {e}")
+                    print(f"   Strategy failed: {e}")
                 continue
         
         # All strategies failed
         if self.enable_progress:
-            print(f"   ✗ All download strategies failed for: {paper.title}")
+            print(f"   All download strategies failed for: {paper.title}")
         
         return False, None, None
 
@@ -292,11 +292,11 @@ class EnhancedDownloader:
             'downloaded_files': []
         }
         
-        print(f"\n🚀 Starting enhanced paper downloading...")
-        print(f"📁 Download directory: {download_dir}")
-        print(f"📊 Papers to process: {len(papers)}")
+        print(f"\nStarting enhanced paper downloading...")
+        print(f"Download directory: {download_dir}")
+        print(f"Papers to process: {len(papers)}")
         if num_limit:
-            print(f"📈 Download limit: {num_limit}")
+            print(f"Download limit: {num_limit}")
         
         paper_count = 0
         
@@ -313,7 +313,7 @@ class EnhancedDownloader:
             if self.enable_progress:
                 progress_info = f"({paper_count}/{scholar_results})" if scholar_results else f"({paper_count})"
                 print(f"\n{'='*60}")
-                print(f"📄 Processing paper {progress_info}")
+                print(f"Processing paper {progress_info}")
             
             success, source, file_path = self.download_paper_enhanced(
                 paper, download_dir, scihub_url
@@ -329,19 +329,19 @@ class EnhancedDownloader:
                     stats['direct_downloads'] += 1
                     
                 if self.enable_progress:
-                    print(f"✅ Successfully downloaded from {source}")
+                    print(f"Successfully downloaded from {source}")
             else:
                 stats['failed_downloads'] += 1
         
         # Print final statistics
         print(f"\n{'='*60}")
-        print("📊 DOWNLOAD SUMMARY")
+        print("DOWNLOAD SUMMARY")
         print(f"{'='*60}")
-        print(f"✅ Successful downloads: {stats['successful_downloads']}")
-        print(f"❌ Failed downloads: {stats['failed_downloads']}")
-        print(f"🌐 SciHub downloads: {stats['scihub_downloads']}")
-        print(f"🔗 Direct downloads: {stats['direct_downloads']}")
-        print(f"📁 Files saved to: {download_dir}")
+        print(f"Successful downloads: {stats['successful_downloads']}")
+        print(f"Failed downloads: {stats['failed_downloads']}")
+        print(f"SciHub downloads: {stats['scihub_downloads']}")
+        print(f"Direct downloads: {stats['direct_downloads']}")
+        print(f"Files saved to: {download_dir}")
         
         return stats
 

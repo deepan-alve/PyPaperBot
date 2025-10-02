@@ -67,7 +67,7 @@ def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, 
         if num_limit_type is not None and num_limit_type == 1:
             to_download.sort(key=lambda x: int(x.cites_num) if x.cites_num is not None else 0, reverse=True)
 
-        downloadPapers(to_download, dwn_dir, num_limit, len(to_download), SciHub_URL, use_enhanced)
+        downloadPapers(to_download, dwn_dir, num_limit, len(to_download), SciHub_URL, SciDB_URL, use_enhanced)
 
 
     Paper.generateReport(to_download, dwn_dir + "result.csv")
@@ -209,7 +209,7 @@ def main():
     # Determine which downloader to use
     use_enhanced = not args.classic_dl  # Use enhanced unless classic is explicitly requested
 
-    start(args.query, args.scholar_results, scholar_pages, dwn_dir, proxy, args.min_year , max_dwn, max_dwn_type , args.journal_filter, args.restrict, DOIs, args.scihub_mirror, use_enhanced)
+    start(args.query, args.scholar_results, scholar_pages, dwn_dir, proxy, args.min_year , max_dwn, max_dwn_type , args.journal_filter, args.restrict, DOIs, args.scihub_mirror, use_enhanced, args.selenium_chrome_version, args.cites, args.use_doi_as_filename, args.annas_archive_mirror, args.skip_words)
 
 if __name__ == "__main__":
     checkVersion()

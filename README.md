@@ -1,4 +1,9 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/ferru97)
+[![Donate](https - Download papers given a Google Scholar link
+ - Generate Bibtex of the downloaded paper
+ - Filter downloaded paper by year, journal and citations number
++- **Enhanced downloader with progress bars and resume capability** (NEW!)
++- **Multi-threaded downloads for improved speed** (NEW!)
++- **Real-time download statistics and monitoring** (NEW!).shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/ferru97)
 
 # NEWS: PyPaperBot development is back on track!
 ### Join the [Telegram](https://t.me/pypaperbotdatawizards) channel to stay updated, report bugs, or request custom data mining scripts.
@@ -17,9 +22,9 @@ PyPaperbot is also able to download the **bibtex** of each paper.
 - Download papers given a Google Scholar link
 - Generate Bibtex of the downloaded paper
 - Filter downloaded paper by year, journal and citations number
-- **🚀 Enhanced downloader with progress bars and resume capability** (NEW!)
-- **⚡ Multi-threaded downloads for improved speed** (NEW!)
-- **📊 Real-time download statistics and monitoring** (NEW!)
+- **Enhanced downloader with progress bars and resume capability** (NEW!)
+- **Multi-threaded downloads for improved speed** (NEW!)
+- **Real-time download statistics and monitoring** (NEW!)
 
 ## Installation
 
@@ -31,7 +36,8 @@ Use `pip` to install from pypi:
 pip install PyPaperBot
 ```
 
-**🚀 Enhanced Download Experience**: The latest version includes an enhanced downloader with progress bars, resume capability, and multi-threaded downloads. This requires `pySmartDL` which is automatically installed with PyPaperBot.
+**Enhanced Download Experience**: The latest version includes an enhanced downloader with progress bars, resume capability, and multi-threaded downloads. This requires `pySmartDL` which is automatically installed with PyPaperBot.
+
 If on windows you get an error saying *error: Microsoft Visual C++ 14.0 is required..* try to install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/it/visual-cpp-build-tools/) or [Visual Studio](https://visualstudio.microsoft.com/it/downloads/)
 
 ### For Termux users
